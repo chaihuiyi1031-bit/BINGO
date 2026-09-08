@@ -322,7 +322,7 @@
         }
 
         /* ============================================================
-           全屏图片弹窗 - 覆盖整个屏幕
+           全屏图片弹窗
            ============================================================ */
         .question-overlay {
             position: fixed;
@@ -478,7 +478,7 @@
             font-style: italic;
         }
 
-        /* ============ 胜利弹窗 ============ */
+        /* 胜利弹窗 */
         .win-overlay {
             position: fixed;
             top: 0;
@@ -535,12 +535,8 @@
         }
         @keyframes bounce {
             0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-14px);
-            }
+            100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
         }
         .win-card h2 {
             color: var(--border-gold);
@@ -560,64 +556,27 @@
 
         /* ============ 横屏适配 ============ */
         @media (orientation: landscape) {
-            .image-container {
-                padding: 50px 20px 60px;
-            }
-            .image-container img {
-                max-height: 85vh;
-                max-width: 75vw;
-            }
+            .image-container { padding: 50px 20px 60px; }
+            .image-container img { max-height: 85vh; max-width: 75vw; }
         }
-
-        /* ============ 竖屏手机适配 ============ */
         @media (orientation: portrait) and (max-width: 600px) {
-            .image-container {
-                padding: 50px 8px 70px;
-            }
-            .image-container img {
-                max-height: 75vh;
-                max-width: 95vw;
-            }
-            .overlay-header {
-                padding: 8px 12px;
-            }
-            .question-number-badge {
-                padding: 5px 14px;
-                font-size: 0.7rem;
-            }
-            .btn-close-top {
-                padding: 6px 14px;
-                font-size: 0.75rem;
-            }
-            .overlay-footer {
-                padding: 8px 12px 12px;
-            }
-            .btn-back {
-                padding: 11px 28px;
-                font-size: 0.85rem;
-            }
-            .hint-text {
-                display: none;
-            }
+            .image-container { padding: 50px 8px 70px; }
+            .image-container img { max-height: 75vh; max-width: 95vw; }
+            .overlay-header { padding: 8px 12px; }
+            .question-number-badge { padding: 5px 14px; font-size: 0.7rem; }
+            .btn-close-top { padding: 6px 14px; font-size: 0.75rem; }
+            .overlay-footer { padding: 8px 12px 12px; }
+            .btn-back { padding: 11px 28px; font-size: 0.85rem; }
+            .hint-text { display: none; }
         }
-
-        /* ============ 平板适配 ============ */
         @media (min-width: 601px) and (max-width: 1024px) {
-            .image-container img {
-                max-height: 70vh;
-                max-width: 85vw;
-            }
+            .image-container img { max-height: 70vh; max-width: 85vw; }
         }
-
-        /* ============ 桌面大屏适配 ============ */
         @media (min-width: 1025px) {
-            .image-container img {
-                max-height: 78vh;
-                max-width: 70vw;
-            }
+            .image-container img { max-height: 78vh; max-width: 70vw; }
         }
 
-        /* ============ 主网格响应式 ============ */
+        /* 主网格响应式 */
         @media (max-width: 520px) {
             .main-view { padding: 18px 12px 22px; }
             .header h1 { font-size: 2rem; letter-spacing: 6px; }
@@ -627,19 +586,10 @@
             .cell.used .check-overlay { font-size: 1.4rem; }
             .bingo-letters .letter { font-size: 1.3rem; }
             .btn { padding: 10px 20px; font-size: 0.85rem; }
-            .corner-deco,
-            .main-view::before,
-            .main-view::after,
-            .bingo-grid::before,
-            .bingo-grid::after {
-                display: none;
-            }
-            .header .ornament-line::before,
-            .header .ornament-line::after {
-                flex: 0 1 30px;
-            }
+            .corner-deco, .main-view::before, .main-view::after,
+            .bingo-grid::before, .bingo-grid::after { display: none; }
+            .header .ornament-line::before, .header .ornament-line::after { flex: 0 1 30px; }
         }
-
         @media (max-width: 360px) {
             .cell { font-size: 0.9rem; }
             .cell.used .check-overlay { font-size: 1.2rem; }
@@ -650,7 +600,6 @@
 </head>
 <body>
 
-    <!-- ==================== 主视图 ==================== -->
     <div class="container">
         <div class="main-view" id="mainView">
             <span class="corner-deco top-right">❦</span>
@@ -679,22 +628,20 @@
         </div>
     </div>
 
-    <!-- ==================== 全屏图片弹窗 ==================== -->
+    <!-- 全屏图片弹窗 -->
     <div class="question-overlay" id="questionOverlay">
         <div class="overlay-header">
             <span class="question-number-badge" id="questionBadge">第 1 图</span>
             <button class="btn-close-top" id="btnCloseTop">✕ 关闭</button>
         </div>
-
         <div class="image-container" id="imageContainer"></div>
-
         <div class="overlay-footer">
             <button class="btn btn-back" id="btnBack">← 返回号码</button>
             <span class="hint-text">按 Esc 键关闭</span>
         </div>
     </div>
 
-    <!-- ==================== 胜利弹窗 ==================== -->
+    <!-- 胜利弹窗 -->
     <div class="win-overlay" id="winOverlay">
         <div class="win-card">
             <span class="trophy">🏆</span>
@@ -705,16 +652,9 @@
     </div>
 
     <script>
-        // ============================================================
-        // 📸 图片设置
-        // 图片直接放在与当前 HTML 文件相同的目录下，
-        // 命名为 1.png、2.png ... 25.png 即可自动识别。
-        // ============================================================
-        const IMAGE_EXTENSION = '.png';
+        // 图片扩展名尝试顺序（如果有 .png 就用 .png，否则尝试 .jpg 和 .jpeg）
+        const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg'];
 
-        // ============================================================
-        // 游戏状态
-        // ============================================================
         let usedCells = new Array(25).fill(false);
         let currentNumber = null;
 
@@ -729,9 +669,6 @@
         const winOverlay = document.getElementById('winOverlay');
         const btnWinReset = document.getElementById('btnWinReset');
 
-        // ============================================================
-        // 渲染网格
-        // ============================================================
         function renderGrid() {
             bingoGrid.innerHTML = '';
             for (let i = 1; i <= 25; i++) {
@@ -754,7 +691,6 @@
                     cell.textContent = i;
                     cell.addEventListener('click', () => onCellClick(i));
                 }
-
                 bingoGrid.appendChild(cell);
             }
             updateProgress();
@@ -768,9 +704,6 @@
             }
         }
 
-        // ============================================================
-        // 点击格子
-        // ============================================================
         function onCellClick(number) {
             if (usedCells[number - 1]) return;
             usedCells[number - 1] = true;
@@ -779,50 +712,53 @@
             showImage(number);
         }
 
-        // ============================================================
-        // 显示图片（全屏模式）
-        // ============================================================
         function showImage(number) {
             imageContainer.innerHTML = '';
             questionBadge.textContent = `第 ${number} 图`;
+            questionOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
 
+            let attemptIndex = 0;
             const img = document.createElement('img');
-            img.src = `${number}${IMAGE_EXTENSION}`;
             img.alt = `图片 ${number}`;
-            img.loading = 'eager';
-            img.draggable = false;
             img.style.opacity = '0';
+            img.draggable = false;
+
+            function tryNextExtension() {
+                if (attemptIndex >= IMAGE_EXTENSIONS.length) {
+                    // 所有扩展名都失败
+                    imageContainer.innerHTML = `
+                        <div class="image-fallback">
+                            ⚠️ 图片未找到<br>
+                            请确认 <strong>${number}.png</strong>（或 .jpg / .jpeg）<br>
+                            是否与此 HTML 文件在同一文件夹内
+                        </div>
+                    `;
+                    return;
+                }
+                const ext = IMAGE_EXTENSIONS[attemptIndex];
+                img.src = `${number}${ext}`;
+                attemptIndex++;
+            }
 
             img.onload = function() {
                 img.style.opacity = '1';
+                imageContainer.appendChild(img);
             };
-
             img.onerror = function() {
-                imageContainer.innerHTML = `
-                    <div class="image-fallback">
-                        ⚠️ 图片未找到<br>
-                        请确认 <strong>${number}${IMAGE_EXTENSION}</strong> 是否与此 HTML 文件在同一目录下
-                    </div>
-                `;
+                tryNextExtension();
             };
 
-            imageContainer.appendChild(img);
-            questionOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // 开始尝试加载
+            tryNextExtension();
         }
 
-        // ============================================================
-        // 关闭图片弹窗
-        // ============================================================
         function closeOverlay() {
             questionOverlay.classList.remove('active');
             document.body.style.overflow = '';
             currentNumber = null;
         }
 
-        // ============================================================
-        // 重置游戏
-        // ============================================================
         function resetGame() {
             usedCells = new Array(25).fill(false);
             currentNumber = null;
@@ -831,9 +767,6 @@
             renderGrid();
         }
 
-        // ============================================================
-        // 事件绑定
-        // ============================================================
         btnBack.addEventListener('click', closeOverlay);
         btnCloseTop.addEventListener('click', closeOverlay);
         btnReset.addEventListener('click', resetGame);
@@ -845,11 +778,8 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                if (questionOverlay.classList.contains('active')) {
-                    closeOverlay();
-                } else if (winOverlay.classList.contains('active')) {
-                    resetGame();
-                }
+                if (questionOverlay.classList.contains('active')) closeOverlay();
+                else if (winOverlay.classList.contains('active')) resetGame();
             }
         });
 
@@ -858,16 +788,10 @@
             touchStartY = e.touches[0].clientY;
         }, { passive: true });
         questionOverlay.addEventListener('touchend', (e) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchEndY - touchStartY;
-            if (diff > 80) {
-                closeOverlay();
-            }
+            const diff = e.changedTouches[0].clientY - touchStartY;
+            if (diff > 80) closeOverlay();
         }, { passive: true });
 
-        // ============================================================
-        // 初始化
-        // ============================================================
         renderGrid();
     </script>
 </body>
